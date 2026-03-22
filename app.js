@@ -42,7 +42,7 @@ function renderTeachers() {
   });
 }
 function updateCounter() {
-  counterEl.textContent = `${selected.size} / ${REQUIRED_VOTES} selected`;
+  counterEl.textContent = `已选 ${selected.size} / ${REQUIRED_VOTES}`;
   submitBtn.disabled = selected.size !== REQUIRED_VOTES;
 }
 async function loadTeachers() {
@@ -51,7 +51,7 @@ async function loadTeachers() {
     .select("id,name")
     .order("name", { ascending: true });
   if (error) {
-    setMessage("Failed to load teachers.");
+    setMessage("加载老师名单失败。");
     return;
   }
   teachers = data || [];
@@ -63,45 +63,45 @@ async function loadProgress() {
     p_total: TOTAL_VOTERS,
   });
   if (error) {
-    progressEl.textContent = "Failed to load progress.";
+    progressEl.textContent = "加载进度失败。";
     return;
   }
-  progressEl.textContent = `${data.current} / ${data.total} voted`;
+  progressEl.textContent = `${data.current} / ${data.total} 已投票`;
 }
 async function loadResults() {
   const { data, error } = await supabase.rpc("get_results", {
     p_total: TOTAL_VOTERS,
   });
   if (error) {
-    resultsEl.textContent = "Failed to load results.";
+    resultsEl.textContent = "加载结果失败。";
     return;
   }
   if (!data.ready) {
-    resultsEl.textContent = `Not ready. ${data.current}/${data.total} voted.`;
+    resultsEl.textContent = `未公布（${data.current}/${data.total} 已投票）`;
     return;
   }
   const rows = data.results || [];
   resultsEl.innerHTML = rows
-    .map((r) => `<div>${r.name}: ${r.votes}</div>`)
+    .map((r) => `<div>${r.name}：${r.votes} 票</div>`)
     .join("");
 }
 submitBtn.addEventListener("click", async () => {
   const code = voterCodeEl.value.trim().toUpperCase();
   if (!code) {
-    setMessage("Please enter voter code.");
+    setMessage("请输入投票码。");
     return;
   }
-  setMessage("Submitting...");
+  setMessage("正在提交...");
   const { data } = await supabase.rpc("submit_ballot", {
     p_voter_code: code,
     p_teacher_ids: Array.from(selected),
   });
   if (!data || !data.ok) {
     const err = data?.error || "UNKNOWN";
-    setMessage(`Submit failed: ${err}`);
+    setMessage(`提交失败：${err}`);
     return;
   }
-  setMessage("Vote submitted.");
+  setMessage("提交成功。");
   selected.clear();
   renderTeachers();
   updateCounter();
