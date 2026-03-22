@@ -69,7 +69,13 @@ async function loadProgress() {
   progressEl.textContent = `${data.current} / ${data.total} 已投票`;
 }
 async function loadResults() {
-  const { data, error } = await supabase.rpc("get_results", {
+  const code = voterCodeEl.value.trim().toUpperCase();
+  if (!code) {
+    resultsEl.textContent = "请输入投票码后查看结果。";
+    return;
+  }
+  const { data, error } = await supabase.rpc("get_results_for_voter", {
+    p_voter_code: code,
     p_total: TOTAL_VOTERS,
   });
   if (error) {
@@ -77,7 +83,7 @@ async function loadResults() {
     return;
   }
   if (!data.ready) {
-    resultsEl.textContent = `未公布（${data.current}/${data.total} 已投票）`;
+    resultsEl.textContent = "你投票后才能查看结果。";
     return;
   }
   const rows = data.results || [];
