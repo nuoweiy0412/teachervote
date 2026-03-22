@@ -1,37 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Teacher Vote</title>
+    <title>优秀教师评选投票</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <main class="page">
       <header class="header">
-        <h1>Teacher Excellence Vote</h1>
-        <p>Select exactly 10 teachers. Results appear after all 15 votes.</p>
+        <h1>优秀教师评选投票</h1>
+        <p>每人必须投 10 票，全部 15 人投完后显示结果。</p>
       </header>
       <section class="card">
-        <h2>Vote</h2>
+        <h2>投票</h2>
         <label class="field">
-          <span>Voter Code (T01–T15)</span>
+          <span>投票码（T01–T15）</span>
           <input id="voterCode" type="text" placeholder="T01" />
         </label>
         <div class="toolbar">
-          <span id="counter">0 / 10 selected</span>
-          <button id="submitBtn">Submit Vote</button>
+          <span id="counter">已选 0 / 10</span>
+          <button id="submitBtn">提交投票</button>
         </div>
         <div id="teachers" class="grid"></div>
         <p id="message" class="message"></p>
       </section>
       <section class="card">
-        <h2>Progress</h2>
-        <div id="progress" class="progress">Loading...</div>
+        <h2>投票进度</h2>
+        <div id="progress" class="progress">加载中...</div>
       </section>
       <section class="card">
-        <h2>Results</h2>
-        <div id="results" class="results">Not ready.</div>
+        <h2>投票结果</h2>
+        <div id="results" class="results">结果未公布。</div>
       </section>
     </main>
     <script type="module" src="./app.js"></script>
