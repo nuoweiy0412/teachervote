@@ -1,7 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 const SUPABASE_URL = "https://lyhxlpfxnppgoceaoujr.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_6Joyu6hVOz0Ce6Tu5wgGWQ_aETQ5_7A";
-const TOTAL_VOTERS = 15;
+const TOTAL_VOTERS = 16;
 const REQUIRED_VOTES = 10;
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const teachersEl = document.getElementById("teachers");
